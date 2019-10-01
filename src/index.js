@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import './styles/index.css'
 import App from './components/App';
 import * as serviceWorker from './serviceWorker';
+import { BrowserRouter } from 'react-router-dom'
 
 // eslint-disable-next-line
 import { Provider, Client, defaultExchanges, dedupExchange, fetchExchange } from 'urql'
@@ -16,9 +17,11 @@ const client = new Client({
 })
 
 ReactDOM.render(
-  <Provider value={client}>
-    <App />
-  </Provider>,
+  <BrowserRouter>
+    <Provider value={client}>
+      <App />
+    </Provider>,
+  </BrowserRouter>,
   document.getElementById('root')
 )
 
