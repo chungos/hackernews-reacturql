@@ -4,6 +4,7 @@ import './styles/index.css'
 import App from './components/App';
 import * as serviceWorker from './serviceWorker';
 import { BrowserRouter } from 'react-router-dom'
+import { getToken } from './token'
 
 // eslint-disable-next-line
 import { Provider, Client, defaultExchanges, dedupExchange, fetchExchange } from 'urql'
@@ -13,7 +14,13 @@ const cache = cacheExchange({})
 
 const client = new Client({
   url: 'http://localhost:4000',
-  exchanges: [dedupExchange, cache, fetchExchange],
+  fetchOptions: () => {
+      const token = getToken()
+      return {
+        headers: { authorization: token ? `Bearer ${token}` : '' }
+      }
+  },
+  exchanges: [dedupExchange, cache, fetchExchange]
 })
 
 ReactDOM.render(
