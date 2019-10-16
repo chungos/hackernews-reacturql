@@ -40,6 +40,10 @@ const Search = () => {
     executeQuery();
   }, [executeQuery]);
 
+  const { data, fetching, error } = result
+
+  if (fetching) return <div>Extracting resulterings, please wait h00m0n</div>
+
   const links = result.data ? result.data.feed.links: [];
   
   return (
